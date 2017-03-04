@@ -1,9 +1,10 @@
 module Msgs exposing (..)
 
 import Models exposing (Clicker)
+import Time exposing (..)
 
 
 type Msg
     = OnCookieClick
-    | Update
+    | Update Time
     | Buy Clicker

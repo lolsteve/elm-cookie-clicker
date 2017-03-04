@@ -14,7 +14,7 @@ update msg model =
             in
                 ( updatedModel, Cmd.none )
 
-        Msgs.Update ->
+        Msgs.Update time ->
             let
                 updatedModel =
                     { model | cookies = model.cookies + (calcCookies model.clickers) }

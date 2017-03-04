@@ -11,8 +11,6 @@ view : Model -> Html Msg
 view model =
     div []
         [ div []
-            [ button [ onClick (Msgs.Update) ] [ text "update" ] ]
-        , div []
             [ button [ onClick (Msgs.OnCookieClick) ] [ text "cookie" ] ]
         , div []
             [ text (toString model.cookies ++ " cookies") ]

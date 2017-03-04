@@ -5,6 +5,7 @@ import Msgs exposing (Msg)
 import Models exposing (Model, initialModel)
 import Update exposing (update)
 import View exposing (view)
+import Time exposing (second)
 
 
 init : ( Model, Cmd Msg )
@@ -14,7 +15,7 @@ init =
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
-    Sub.none
+    Time.every second Msgs.Update
 
 
 
