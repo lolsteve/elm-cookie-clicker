@@ -25,8 +25,11 @@ update msg model =
             let
                 updatedClicker =
                     { clicker | amount = clicker.amount + howMuch }
+
+                updatedModel =
+                    { model | cookies = model.cookies - (howMuch * clicker.cost) }
             in
-                ( updateClicker model updatedClicker, Cmd.none )
+                ( updateClicker updatedModel updatedClicker, Cmd.none )
 
 
 updateClicker : Model -> Clicker -> Model

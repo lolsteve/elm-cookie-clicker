@@ -15,17 +15,18 @@ type alias Clicker =
     { id : ClickerId
     , cps : Int
     , amount : Int
+    , cost : Int
     }
 
 
 initialClicker : Clicker
 initialClicker =
-    { id = "Cursor", cps = 1, amount = 0 }
+    { id = "Cursor", cps = 1, amount = 0, cost = 10 }
 
 
 initialClicker2 : Clicker
 initialClicker2 =
-    { id = "Grandma", cps = 3, amount = 0 }
+    { id = "Grandma", cps = 3, amount = 0, cost = 100 }
 
 
 initialModel : Model
