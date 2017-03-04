@@ -1,7 +1,7 @@
 module View exposing (..)
 
 import Html exposing (..)
-import Html.Attributes exposing (class)
+import Html.Attributes exposing (class, src)
 import Html.Events exposing (onClick)
 import Msgs exposing (Msg)
 import Models exposing (Model, Clicker)
@@ -10,8 +10,8 @@ import Models exposing (Model, Clicker)
 view : Model -> Html Msg
 view model =
     div []
-        [ div []
-            [ button [ onClick (Msgs.OnCookieClick) ] [ text "cookie" ] ]
+        [ img [ src "images/cookie.png", onClick (Msgs.OnCookieClick) ]
+            []
         , div []
             [ text (toString model.cookies ++ " cookies") ]
         , div []
