@@ -7,4 +7,4 @@ import Time exposing (..)
 type Msg
     = OnCookieClick
     | Update Time
-    | Buy Clicker
+    | Buy Clicker Int

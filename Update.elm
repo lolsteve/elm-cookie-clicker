@@ -21,10 +21,10 @@ update msg model =
             in
                 ( updatedModel, Cmd.none )
 
-        Msgs.Buy clicker ->
+        Msgs.Buy clicker howMuch ->
             let
                 updatedClicker =
-                    { clicker | amount = clicker.amount + 1 }
+                    { clicker | amount = clicker.amount + howMuch }
             in
                 ( updateClicker model updatedClicker, Cmd.none )
 

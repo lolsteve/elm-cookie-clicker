@@ -29,6 +29,7 @@ clickersList clickers =
                     , th [] [ text "CPS" ]
                     , th [] [ text "Amount" ]
                     , th [] [ text "TCPS" ]
+                    , th [] [ text "Buy" ]
                     ]
                 ]
             , tbody [] (List.map clickerRow clickers)
@@ -43,5 +44,5 @@ clickerRow clicker =
         , td [] [ text (toString clicker.cps) ]
         , td [] [ text (toString clicker.amount) ]
         , td [] [ text (toString (clicker.cps * clicker.amount)) ]
-        , td [] [ button [ onClick (Msgs.Buy clicker) ] [ text "buy" ] ]
+        , td [] [ button [ onClick (Msgs.Buy clicker 1) ] [ text "buy" ], button [ onClick (Msgs.Buy clicker -1) ] [ text "sell" ] ]
         ]
