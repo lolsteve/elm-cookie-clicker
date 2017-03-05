@@ -19,7 +19,8 @@ view model =
         , container
             [ row
                 [ column [ Medium Six ]
-                    [ div [ style [ ( "text-align", "center" ) ] ]
+                    [ div
+                        [ style [ ( "text-align", "center" ) ] ]
                         [ img
                             [ src "images/cookie.png"
                             , style [ ( "cursor", "pointer" ) ]
@@ -33,7 +34,14 @@ view model =
                         ]
                     ]
                 , column [ Medium Six ]
-                    (List.map clickerBox model.clickers)
+                    [ div
+                        [ style
+                            [ ( "overflow-y", "scroll" )
+                            , ( "max-height", "100vh" )
+                            ]
+                        ]
+                        (List.map clickerBox model.clickers)
+                    ]
                 ]
             ]
         ]
