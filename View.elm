@@ -5,6 +5,8 @@ import Html.Attributes exposing (class, src, style)
 import Html.Events exposing (onClick)
 import Msgs exposing (Msg)
 import Models exposing (Model, Clicker, calcCPS, totalCPS)
+import Bootstrap.Buttons exposing (..)
+import Bootstrap.Panels exposing (..)
 import Bootstrap.Grid exposing (..)
 
 
@@ -14,21 +16,23 @@ view model =
         [ node "link"
             [ Html.Attributes.rel "stylesheet", Html.Attributes.href "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" ]
             []
-        , containerFluid
+        , container
             [ row
-                [ column [ Medium Four ]
-                    [ img
-                        [ src "images/cookie.png"
-                        , style [ ( "cursor", "pointer" ) ]
-                        , onClick (Msgs.OnCookieClick)
+                [ column [ Medium Six ]
+                    [ div [ style [ ( "text-align", "center" ) ] ]
+                        [ img
+                            [ src "images/cookie.png"
+                            , style [ ( "cursor", "pointer" ) ]
+                            , onClick (Msgs.OnCookieClick)
+                            ]
+                            []
+                        , h2 []
+                            [ text (toString model.cookies ++ " cookies") ]
+                        , h3 []
+                            [ text (toString (totalCPS model) ++ " cookies per second") ]
                         ]
-                        []
-                    , h2 []
-                        [ text (toString model.cookies ++ " cookies") ]
-                    , h3 []
-                        [ text (toString (totalCPS model) ++ " cookies per second") ]
                     ]
-                , column [ Medium Four ]
+                , column [ Medium Six ]
                     (List.map clickerBox model.clickers)
                 ]
             ]
@@ -38,15 +42,42 @@ view model =
 clickerBox : Clicker -> Html Msg
 clickerBox clicker =
     div []
-        [ strong [] [ text clicker.id ]
-        , div [] [ text ("Price: " ++ (toString clicker.cost)) ]
-        , div [] [ text ("Owned: " ++ (toString clicker.amount)) ]
-        , div []
-            [ button [ onClick (Msgs.Buy clicker 1) ] [ text "Buy" ]
-            , button [ onClick (Msgs.Sell clicker 1) ] [ text "Sell" ]
+        [ panel NormalPanel
+            []
+            [ panelHeading (PanelH5 clicker.id) [] []
+            , panelBody []
+                [ span
+                    [ style
+                        [ ( "display", "inline-block" )
+                        , ( "margin", "3px" )
+                        , ( "vertical-align", "top" )
+                        ]
+                    ]
+                    [ div [] [ text ("Price: " ++ (toString clicker.cost)) ]
+                    , div [] [ text ("Owned: " ++ (toString clicker.amount)) ]
+                    ]
+                , span
+                    [ style
+                        [ ( "display", "inline-block" )
+                        , ( "margin", "3px" )
+                        , ( "vertical-align", "top" )
+                        ]
+                    ]
+                    [ div []
+                        [ text ("CPS: " ++ (toString clicker.cps)) ]
+                    , div []
+                        [ text ("TCPS: " ++ (toString (calcCPS clicker))) ]
+                    ]
+                , span
+                    [ style
+                        [ ( "display", "inline-block" )
+                        , ( "margin", "3px" )
+                        , ( "vertical-align", "top" )
+                        ]
+                    ]
+                    [ btn BtnSuccess [] [] [ onClick (Msgs.Buy clicker 1) ] [ text "Buy" ]
+                    , btn BtnDanger [] [] [ onClick (Msgs.Sell clicker 1) ] [ text "Sell" ]
+                    ]
+                ]
             ]
-        , span []
-            [ text ("CPS: " ++ (toString clicker.cps)) ]
-        , span []
-            [ text ("TCPS: " ++ (toString (calcCPS clicker))) ]
         ]
