@@ -1,7 +1,7 @@
 module Update exposing (..)
 
 import Msgs exposing (Msg)
-import Models exposing (Model, Clicker)
+import Models exposing (Model, Clicker, totalCPS)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -19,7 +19,7 @@ update msg model =
                 updatedModel =
                     { model
                         | cookies =
-                            model.cookies + (calcCookies model.clickers)
+                            model.cookies + (totalCPS model)
                     }
             in
                 ( updatedModel, Cmd.none )
@@ -95,17 +95,3 @@ updateClicker model updatedClicker =
             List.map pick model.clickers
     in
         { model | clickers = updatedClickers }
-
-
-calcCookie : Clicker -> Int
-calcCookie clicker =
-    clicker.cps * clicker.amount
-
-
-calcCookies : List Clicker -> Int
-calcCookies clickers =
-    let
-        cookies =
-            List.map calcCookie clickers
-    in
-        List.sum cookies

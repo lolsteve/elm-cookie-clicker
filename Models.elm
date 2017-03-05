@@ -80,6 +80,46 @@ shipmentClicker =
     }
 
 
+alchemyClicker : Clicker
+alchemyClicker =
+    { id = "Alchemy Lab"
+    , cps = 4000
+    , amount = 0
+    , basecost = 200000
+    , cost = 200000
+    }
+
+
+portalClicker : Clicker
+portalClicker =
+    { id = "Portal"
+    , cps = 66666
+    , amount = 0
+    , basecost = 1666666
+    , cost = 1666666
+    }
+
+
+timeClicker : Clicker
+timeClicker =
+    { id = "Time Machine"
+    , cps = 987654
+    , amount = 0
+    , basecost = 123456789
+    , cost = 123456789
+    }
+
+
+antimatterClicker : Clicker
+antimatterClicker =
+    { id = "Antimatter Condenser"
+    , cps = 9999999
+    , amount = 0
+    , basecost = 3999999999
+    , cost = 3999999999
+    }
+
+
 initialModel : Model
 initialModel =
     { cookies = 0
@@ -90,5 +130,23 @@ initialModel =
         , mineClicker
         , factoryClicker
         , shipmentClicker
+        , alchemyClicker
+        , portalClicker
+        , timeClicker
+        , antimatterClicker
         ]
     }
+
+
+calcCPS : Clicker -> Int
+calcCPS clicker =
+    clicker.cps * clicker.amount
+
+
+totalCPS : Model -> Int
+totalCPS model =
+    let
+        cps =
+            List.map calcCPS model.clickers
+    in
+        List.sum cps
