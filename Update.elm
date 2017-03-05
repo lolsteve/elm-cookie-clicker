@@ -17,21 +17,40 @@ update msg model =
         Msgs.Update time ->
             let
                 updatedModel =
-                    { model | cookies = model.cookies + (calcCookies model.clickers) }
+                    { model
+                        | cookies =
+                            model.cookies + (calcCookies model.clickers)
+                    }
             in
                 ( updatedModel, Cmd.none )
 
         Msgs.Buy clicker howMuch ->
-            if model.cookies >= clicker.cost then
+            if
+                (howMuch > 0 && model.cookies >= clicker.cost)
+                    || (howMuch < 0 && clicker.amount > 0)
+            then
                 let
                     updatedClicker =
                         { clicker
                             | amount = clicker.amount + howMuch
-                            , cost = (floor ((toFloat clicker.basecost) * 1.15 ^ toFloat (clicker.amount + howMuch)))
+                            , cost =
+                                floor
+                                    ((toFloat clicker.basecost)
+                                        * 1.15
+                                        ^ toFloat (clicker.amount + howMuch)
+                                    )
                         }
 
                     updatedModel =
-                        { model | cookies = model.cookies - (howMuch * clicker.cost) }
+                        { model
+                            | cookies =
+                                model.cookies
+                                    - floor
+                                        (toFloat
+                                            ((howMuch * clicker.cost))
+                                            * 0.5
+                                        )
+                        }
                 in
                     ( updateClicker updatedModel updatedClicker, Cmd.none )
             else
