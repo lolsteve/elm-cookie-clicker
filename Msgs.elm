@@ -8,3 +8,4 @@ type Msg
     = OnCookieClick
     | Update Time
     | Buy Clicker Int
+    | Sell Clicker Int

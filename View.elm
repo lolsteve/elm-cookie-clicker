@@ -48,6 +48,6 @@ clickerRow clicker =
         , td [] [ text (toString clicker.cost) ]
         , td []
             [ button [ onClick (Msgs.Buy clicker 1) ] [ text "buy" ]
-            , button [ onClick (Msgs.Buy clicker -1) ] [ text "sell" ]
+            , button [ onClick (Msgs.Sell clicker 1) ] [ text "sell" ]
             ]
         ]

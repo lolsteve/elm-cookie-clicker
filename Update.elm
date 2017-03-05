@@ -25,10 +25,7 @@ update msg model =
                 ( updatedModel, Cmd.none )
 
         Msgs.Buy clicker howMuch ->
-            if
-                (howMuch > 0 && model.cookies >= clicker.cost)
-                    || (howMuch < 0 && clicker.amount > 0)
-            then
+            if model.cookies >= clicker.cost then
                 let
                     updatedClicker =
                         { clicker
@@ -46,6 +43,34 @@ update msg model =
                             | cookies =
                                 model.cookies
                                     - floor
+                                        (toFloat
+                                            ((howMuch * clicker.cost))
+                                        )
+                        }
+                in
+                    ( updateClicker updatedModel updatedClicker, Cmd.none )
+            else
+                ( model, Cmd.none )
+
+        Msgs.Sell clicker howMuch ->
+            if clicker.amount > 0 then
+                let
+                    updatedClicker =
+                        { clicker
+                            | amount = clicker.amount - howMuch
+                            , cost =
+                                floor
+                                    ((toFloat clicker.basecost)
+                                        * 1.15
+                                        ^ toFloat (clicker.amount - howMuch)
+                                    )
+                        }
+
+                    updatedModel =
+                        { model
+                            | cookies =
+                                model.cookies
+                                    + floor
                                         (toFloat
                                             ((howMuch * clicker.cost))
                                             * 0.5

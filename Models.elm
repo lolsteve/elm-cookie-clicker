@@ -55,8 +55,8 @@ mineClicker =
     { id = "Mine"
     , cps = 100
     , amount = 0
-    , basecost = 10000
-    , cost = 10000
+    , basecost = 3000
+    , cost = 3000
     }
 
 
@@ -65,8 +65,8 @@ factoryClicker =
     { id = "Factory"
     , cps = 400
     , amount = 0
-    , basecost = 3000
-    , cost = 3000
+    , basecost = 10000
+    , cost = 10000
     }
 
 
