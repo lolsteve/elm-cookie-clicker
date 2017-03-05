@@ -24,7 +24,10 @@ update msg model =
         Msgs.Buy clicker howMuch ->
             let
                 updatedClicker =
-                    { clicker | amount = clicker.amount + howMuch }
+                    { clicker
+                        | amount = clicker.amount + howMuch
+                        , cost = (floor ((toFloat clicker.basecost) * 1.15 ^ toFloat (clicker.amount + howMuch)))
+                    }
 
                 updatedModel =
                     { model | cookies = model.cookies - (howMuch * clicker.cost) }
